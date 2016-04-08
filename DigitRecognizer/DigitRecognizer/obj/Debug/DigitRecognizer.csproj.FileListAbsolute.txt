@@ -1,0 +1,9 @@
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\DigitRecognizer.exe.config
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\DigitRecognizer.exe
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\DigitRecognizer.pdb
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.csprojResolveAssemblyReference.cache
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.Form1.resources
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.Properties.Resources.resources
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.csproj.GenerateResource.Cache
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.exe
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.pdb
