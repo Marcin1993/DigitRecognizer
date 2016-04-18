@@ -7,3 +7,9 @@ C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognize
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.csproj.GenerateResource.Cache
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.exe
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\obj\Debug\DigitRecognizer.pdb
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.dll
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Imaging.dll
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Math.dll
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.xml
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Imaging.xml
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Math.xml
