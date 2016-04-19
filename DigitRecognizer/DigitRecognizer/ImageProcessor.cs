@@ -10,12 +10,12 @@ using AForge.Imaging.Filters;
 namespace DigitRecognizer
 {
     /// <summary>
-    /// Contains methods used to process images
+    /// Image Processing
     /// </summary>
     class ImageProcessor
     {
         /// <summary>
-        /// Converts image to a format used by the neural network
+        /// Convert an image to a format used by the neural network
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         public void PrepareImage(ref System.Drawing.Bitmap image)
@@ -24,13 +24,14 @@ namespace DigitRecognizer
             Crop(ref image);
             Resize(ref image);
         }
+
         /// <summary>
-        /// Converts an image to black and white
+        /// Convert an image to black and white
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void Binarize(ref System.Drawing.Bitmap image)
         {
-            Threshold filter = new Threshold(100);
+            Threshold filter = new Threshold(200);
 
             try
             {
@@ -39,8 +40,9 @@ namespace DigitRecognizer
             }
             catch (Exception) { }
         }
+
         /// <summary>
-        /// Converts an image to grayscale
+        /// Convert an image to grayscale
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void ConvertToGrayscale(ref System.Drawing.Bitmap image)
@@ -53,8 +55,9 @@ namespace DigitRecognizer
             }
             catch (Exception) { }
         }
+
         /// <summary>
-        /// Crops the image's borders
+        /// Crop the image's borders
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void Crop(ref System.Drawing.Bitmap image)
@@ -67,19 +70,48 @@ namespace DigitRecognizer
             }
             catch (Exception) { }
         }
+
         /// <summary>
-        /// Resizes an image to 7x10 px
+        /// Resize an image to 10x20 px
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void Resize(ref System.Drawing.Bitmap image)
         {
-            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(7, 10);
+            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(10, 20);
 
             try
             {
                 image = filter.Apply(image);
             }
             catch (Exception) { }
+        }
+
+        /// <summary>
+        /// Return pixel vector from Bitmap
+        /// </summary>
+        /// <param name="image">Bitmap to convert</param>
+        /// <returns><b>int[] vector</b> bitmap pixel vector</returns>
+        public double[] GetVector(System.Drawing.Bitmap image)
+        {
+            double[] vector = new double[image.Width * image.Height];
+            int currentVectorIndex = 0;
+
+            for(int i = 0; i < image.Height; i++)
+            {
+                for(int j = 0; j < image.Width; j++)
+                {
+                    if(image.GetPixel(j, i).ToArgb() == Color.Black.ToArgb())
+                    {
+                        vector[currentVectorIndex] = 1;
+                    }
+                    else
+                    {
+                        vector[currentVectorIndex] = 0;
+                    }
+                    ++currentVectorIndex;
+                }
+            }
+            return vector;
         }
     }
 }

@@ -13,3 +13,8 @@ C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognize
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.xml
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Imaging.xml
 C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Math.xml
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\DigitRecognizer.XML
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Neuro.dll
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Genetic.dll
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Neuro.xml
+C:\Users\hp\Desktop\Projekty\BIAI\DigitRecognizer\DigitRecognizer\DigitRecognizer\bin\Debug\AForge.Genetic.xml
