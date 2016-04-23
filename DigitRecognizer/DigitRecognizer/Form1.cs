@@ -15,15 +15,26 @@ namespace DigitRecognizer
         Bitmap image;
         OpenFileDialog openDialog;
         ImageProcessor imageProcessor;
+        NeuralNetwork network;
+
+        //Console for debuging purposes
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
         public Form1()
         {
-            imageProcessor = new ImageProcessor();
+            AllocConsole(); //Console for debuging purposes      
+
             openDialog = new OpenFileDialog();
             openDialog.Filter = "Image files (*.bmp, *jpg, *jpeg, *png, *dib)|*.bmp; *jpg; *jpeg; *png; *dib";
             openDialog.FilterIndex = 1;
 
             InitializeComponent();
+
+            imageProcessor = new ImageProcessor();
+            network = new NeuralNetwork();
+            network.Learn();
+            //network.LoadNetwork();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,9 +54,9 @@ namespace DigitRecognizer
 
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "Recognized digit: 8====D";
             imageProcessor.PrepareImage(ref image);
-            pictureBox2.Image = image;
+            OutputImageView.Image = image;
+            OutputTextView.Text = "Recognized digit: " + network.Compute(image);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -60,13 +71,12 @@ namespace DigitRecognizer
             try
             {
                 image = (Bitmap)Image.FromFile(openDialog.FileName);
-                pictureBox1.Image = image;
+                InputImageView.Image = image;
             }
             catch (ArgumentException e) 
             {
-                textBox1.Text = e.Message;
+                OutputTextView.Text = e.Message;
             }
         }
     }
-
 }
