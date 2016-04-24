@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DigitRecognizer
 {
@@ -14,6 +15,7 @@ namespace DigitRecognizer
     {
         Bitmap image;
         OpenFileDialog openDialog;
+        FolderBrowserDialog openFolder;
         ImageProcessor imageProcessor;
         NeuralNetwork network;
 
@@ -29,22 +31,13 @@ namespace DigitRecognizer
             openDialog.Filter = "Image files (*.bmp, *jpg, *jpeg, *png, *dib)|*.bmp; *jpg; *jpeg; *png; *dib";
             openDialog.FilterIndex = 1;
 
+            openFolder = new FolderBrowserDialog();
             InitializeComponent();
 
             imageProcessor = new ImageProcessor();
             network = new NeuralNetwork();
-            network.Learn();
-            //network.LoadNetwork();
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            getImageFromDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            //network.Learn();
+            network.LoadNetwork();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -55,14 +48,8 @@ namespace DigitRecognizer
         private void button2_Click(object sender, EventArgs e)
         {
             imageProcessor.PrepareImage(ref image);
-            OutputImageView.Image = image;
-            OutputTextView.Text = "Recognized digit: " + network.Compute(image);
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Created by:\n\nDawid Kuczyński\nMarcin Okularczyk",
-                            "About", MessageBoxButtons.OK);
+            outputImageView.Image = image;
+            outputTextView.Text = "Recognized digit: " + network.Compute(image);
         }
 
         private void getImageFromDialog()
@@ -71,11 +58,68 @@ namespace DigitRecognizer
             try
             {
                 image = (Bitmap)Image.FromFile(openDialog.FileName);
-                InputImageView.Image = image;
+                inputImageView.Image = image;
             }
             catch (ArgumentException e) 
             {
-                OutputTextView.Text = e.Message;
+                outputTextView.Text = e.Message;
+            }
+        }
+
+        //openFolderButton
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            openFolder.ShowDialog();
+
+            try
+            {
+                String[] fileArray = Directory.GetFiles(openFolder.SelectedPath);
+                Bitmap image;
+                int[] digitCount = new int[10]; //digit occurrance count
+                int[] correctCount = new int[10]; //count of correct guesses for specific digits
+                int correct = 0; //all correct guesses of all digits
+                int number;
+
+                //Count how many times a digit occurred and correct guesses
+
+                for (int i = 0; i < fileArray.Length; i++)
+                {
+                    number = (int)Char.GetNumericValue(fileArray[i], fileArray[i].Length - 10);
+                    ++digitCount[number];
+
+                    image = (Bitmap)Image.FromFile(fileArray[i]);
+                    imageProcessor.PrepareImage(ref image);
+
+                    if (network.Compute(image) == number)
+                    {
+                        ++correctCount[number];
+                        ++correct;
+                    }
+                }
+
+                //Show statistics
+
+                statisticsBox.ResetText();
+
+                float percentage;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    percentage = ((float)correctCount[i] / digitCount[i]) * 100;
+
+                    statisticsBox.AppendText("Digit: " + i + "\tCount: " + digitCount[i] +
+                        "\tCorrect: " + correctCount[i] + "\tPercentage: " +
+                        percentage + "\n");
+                }
+
+                percentage = (float)correct / fileArray.Length * 100;
+
+                statisticsBox.AppendText("All: " + fileArray.Length + "\tCorrect: " + correct +
+                    "\tPercentage: " + percentage);
+            }
+            catch(Exception)
+            {
+
             }
         }
     }

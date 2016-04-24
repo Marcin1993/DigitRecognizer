@@ -31,8 +31,9 @@ namespace DigitRecognizer
         /// <param name="image">Reference to a Bitmap</param>
         private void Binarize(ref System.Drawing.Bitmap image)
         {
-            Threshold filter = new Threshold(200);
-
+            //BradleyLocalThresholding filter = new BradleyLocalThresholding();
+            Threshold filter = new Threshold(250);
+           
             try
             {
                 ConvertToGrayscale(ref image); //Conversion to grayscale to match Threshold arguments
@@ -72,12 +73,12 @@ namespace DigitRecognizer
         }
 
         /// <summary>
-        /// Resize an image to 10x20 px
+        /// Resize an image to 10x15 px
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void Resize(ref System.Drawing.Bitmap image)
         {
-            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(10, 20);
+            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(10, 15);
 
             try
             {

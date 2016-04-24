@@ -23,13 +23,17 @@ namespace DigitRecognizer
         public NeuralNetwork()
         {
             network = new ActivationNetwork(
-                new SigmoidFunction(2), //activation function
-                200, //neurons in the input layer
-                8,  //neurons in the hidden layer
+                new SigmoidFunction(1), //activation function
+                150, //neurons in the input layer
+                10,  //neurons in the hidden layer
                 10); //neurons in the output layer
 
             network.Randomize();
             teacher = new BackPropagationLearning(network);
+
+            teacher.LearningRate = 0.45;
+            teacher.Momentum = 0.65;
+  
         }  
 
         /// <summary>
@@ -39,12 +43,13 @@ namespace DigitRecognizer
         {
             PrepareTrainingData();
 
-            double err = 1;
+            double maxError = 0.01 * input.GetLength(0); //max error lower than 1%
+            double err = maxError;
 
-            while (err >= 0.001)
-            {
+            while (err >= maxError/*0.01*/)
+            { 
                 err = teacher.RunEpoch(input, output);
-                Console.WriteLine("Epoch finished\terror: " + err);
+                Console.WriteLine("Epoch finished\terror: " + err);    
             }
             SaveNetwork();
         }
@@ -63,7 +68,7 @@ namespace DigitRecognizer
         public void LoadNetwork()
         {
             network = (ActivationNetwork)Network.Load("..\\..\\network\\network.dat");
-            network.SetActivationFunction(new SigmoidFunction(2));
+            network.SetActivationFunction(new SigmoidFunction(1));
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace DigitRecognizer
                 input[i] = imgProc.GetVector(image);
                 output[i] = new double[10];
 
-                number = (int)Char.GetNumericValue(fileArray[i], 15);
+                number = (int)Char.GetNumericValue(fileArray[i], 11);
                 output[i][number] = 1;
             }
         }
