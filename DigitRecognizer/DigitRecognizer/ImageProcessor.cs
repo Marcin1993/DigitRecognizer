@@ -73,12 +73,12 @@ namespace DigitRecognizer
         }
 
         /// <summary>
-        /// Resize an image to 10x15 px
+        /// Resize an image to 10x20 px
         /// </summary>
         /// <param name="image">Reference to a Bitmap</param>
         private void Resize(ref System.Drawing.Bitmap image)
         {
-            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(10, 15);
+            ResizeNearestNeighbor filter = new ResizeNearestNeighbor(10, 17);
 
             try
             {

@@ -20,13 +20,12 @@ namespace DigitRecognizer
         NeuralNetwork network;
 
         //Console for debuging purposes
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        private static extern bool AllocConsole();
+        //[System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        //private static extern bool AllocConsole();
 
         public Form1()
         {
-            AllocConsole(); //Console for debuging purposes      
-
+            //AllocConsole(); //Console for debuging purposes      
             openDialog = new OpenFileDialog();
             openDialog.Filter = "Image files (*.bmp, *jpg, *jpeg, *png, *dib)|*.bmp; *jpg; *jpeg; *png; *dib";
             openDialog.FilterIndex = 1;
@@ -36,15 +35,28 @@ namespace DigitRecognizer
 
             imageProcessor = new ImageProcessor();
             network = new NeuralNetwork();
+            //uncomment for learning before start-up
             //network.Learn();
             network.LoadNetwork();
         }
 
+        //Open button
         private void button1_Click(object sender, EventArgs e)
         {
-            getImageFromDialog();
+            //Get image from dialog
+            openDialog.ShowDialog();
+            try
+            {
+                image = (Bitmap)Image.FromFile(openDialog.FileName);
+                inputImageView.Image = image;
+            }
+            catch (ArgumentException ex)
+            {
+                outputTextView.Text = ex.Message;
+            }
         }
 
+        //Recognize button
         private void button2_Click(object sender, EventArgs e)
         {
             imageProcessor.PrepareImage(ref image);
@@ -52,35 +64,21 @@ namespace DigitRecognizer
             outputTextView.Text = "Recognized digit: " + network.Compute(image);
         }
 
-        private void getImageFromDialog()
-        {
-            openDialog.ShowDialog();
-            try
-            {
-                image = (Bitmap)Image.FromFile(openDialog.FileName);
-                inputImageView.Image = image;
-            }
-            catch (ArgumentException e) 
-            {
-                outputTextView.Text = e.Message;
-            }
-        }
-
-        //openFolderButton
+        //Open Folder Button
         private void button1_Click_1(object sender, EventArgs e)
         {
             openFolder.ShowDialog();
 
             try
             {
-                String[] fileArray = Directory.GetFiles(openFolder.SelectedPath);
-                Bitmap image;
+                String[] fileArray = Directory.GetFiles(openFolder.SelectedPath); //list of files in the test folder
+                Bitmap image; //processed image
                 int[] digitCount = new int[10]; //digit occurrance count
                 int[] correctCount = new int[10]; //count of correct guesses for specific digits
-                int correct = 0; //all correct guesses of all digits
-                int number;
+                int allCorrectCount = 0; //all correct guesses of all digits
+                int number; //expected value
 
-                //Count how many times a digit occurred and correct guesses
+                //Count how many times digit have occurred and correct guesses
 
                 for (int i = 0; i < fileArray.Length; i++)
                 {
@@ -93,7 +91,7 @@ namespace DigitRecognizer
                     if (network.Compute(image) == number)
                     {
                         ++correctCount[number];
-                        ++correct;
+                        ++allCorrectCount;
                     }
                 }
 
@@ -112,15 +110,12 @@ namespace DigitRecognizer
                         percentage + "\n");
                 }
 
-                percentage = (float)correct / fileArray.Length * 100;
+                percentage = (float)allCorrectCount / fileArray.Length * 100;
 
-                statisticsBox.AppendText("All: " + fileArray.Length + "\tCorrect: " + correct +
+                statisticsBox.AppendText("All: " + fileArray.Length + "\tCorrect: " + allCorrectCount +
                     "\tPercentage: " + percentage);
             }
-            catch(Exception)
-            {
-
-            }
+            catch(Exception){ }
         }
     }
 }

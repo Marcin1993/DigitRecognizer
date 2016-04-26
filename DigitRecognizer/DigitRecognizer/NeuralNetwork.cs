@@ -24,15 +24,15 @@ namespace DigitRecognizer
         {
             network = new ActivationNetwork(
                 new SigmoidFunction(1), //activation function
-                150, //neurons in the input layer
-                10,  //neurons in the hidden layer
+                170, //neurons in the input layer
+                15,  //neurons in the hidden layer
                 10); //neurons in the output layer
 
             network.Randomize();
             teacher = new BackPropagationLearning(network);
 
-            teacher.LearningRate = 0.45;
-            teacher.Momentum = 0.65;
+            teacher.LearningRate = 0.5;
+            teacher.Momentum = 0.9;
   
         }  
 
@@ -47,9 +47,9 @@ namespace DigitRecognizer
             double err = maxError;
 
             while (err >= maxError/*0.01*/)
-            { 
+            {
                 err = teacher.RunEpoch(input, output);
-                Console.WriteLine("Epoch finished\terror: " + err);    
+                Console.WriteLine("Epoch finished\terror: " + err);
             }
             SaveNetwork();
         }
@@ -133,6 +133,7 @@ namespace DigitRecognizer
             double max = -1;
             int result = -1;
 
+            //Select the index of the output neuron with the highest probability
             for(int i = 0; i < 10 ; i++)
             {
                 if(max < output[i])
@@ -141,7 +142,6 @@ namespace DigitRecognizer
                     result = i;
                 }
             }
-
             return result;
         }
     }
